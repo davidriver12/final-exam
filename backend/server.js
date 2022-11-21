@@ -8,6 +8,7 @@ const bcrypt = require("bcryptjs");
 const session = require("express-session");
 const bodyParser = require("body-parser");
 const userRouter = require('./routes/userRouter');
+const postRouter = require('./routes/postRouter');
 
 const app = express();
 const User = require("./models/user");
@@ -40,6 +41,7 @@ app.use(passport.session());
 require('./passportConfig')(passport);
 
 app.use("/users", userRouter);
+app.use("/posts", postRouter);
 
 //Routes
 app.post("/login", (req, res, next) => {

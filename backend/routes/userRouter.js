@@ -4,7 +4,7 @@ const User = require('../models/user')
 const router = express.Router();
 
 router.get("/", (req, res) => {
-    User.find({}, "full_name")
+    User.find({}, "full_name friend_list")
         .exec(function (err, list_users){
             if (err) throw err;
             console.log(list_users);

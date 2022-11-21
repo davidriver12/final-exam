@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import New_post from './New_post';
 
 const Timeline = () => {
     const [data, setData] = useState(null);
     const [users, setUsers] = useState(null);
+    const [posts, setPosts] = useState(null);
+    const [writePost, setWritePost] = useState(false); 
 
     const getUsers = () => {
       axios({
@@ -12,6 +15,17 @@ const Timeline = () => {
         url: "http://localhost:4000/users"
       }).then((res) => {
         setUsers(res.data)
+        console.log(res.data)
+      })
+    }
+
+    const getPosts = () => {
+      axios({
+        method: "GET",
+        withCredentials: true,
+        url: "http://localhost:4000/posts"
+      }).then((res) =>{
+        setPosts(res.data)
         console.log(res.data)
       })
     }
@@ -49,10 +63,28 @@ const Timeline = () => {
         withCredentials: true,
         url: `http://localhost:4000/users/${userName}/decline`
       })
-  }
+  } 
+
+    const toggleWritePost = () => {
+      setWritePost(!writePost)
+    }
 
     return(
         <div>
+            <div>
+              <button onClick={toggleWritePost}>+ New Post</button>
+              {writePost ? <New_post /> : null}
+            </div>
+            <div>
+                <button onClick={getPosts}>Get posts</button>
+                {
+                  posts ? <ul>{posts.map(post => (
+                      <div>
+                      <li key={post._id}>{post.content}</li>
+                      </div>
+                    ))} </ul> : null
+                }
+            </div>
             <div>
                 <button onClick={getUsers}>Get all users</button>
                 {
