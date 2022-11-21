@@ -7,6 +7,7 @@ const cookieParser = require("cookie-parser");
 const bcrypt = require("bcryptjs");
 const session = require("express-session");
 const bodyParser = require("body-parser");
+const userRouter = require('./routes/userRouter');
 
 const app = express();
 const User = require("./models/user");
@@ -38,6 +39,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 require('./passportConfig')(passport);
 
+app.use("/users", userRouter);
 
 //Routes
 app.post("/login", (req, res, next) => {
@@ -62,6 +64,13 @@ app.post("/register", (req, res) => {
             const newUser = new User ({
                 username: req.body.username,
                 password: hashedPassword,
+                first_name: req.body.first_name,
+                last_name: req.body.last_name,
+                full_name: req.body.full_name,
+                friend_requests: req.body.friend_requests,
+                friend_list: req.body.friend_list,
+                profile_picture: req.body.profile_picture,
+                profile_info: req.body.profile_info,
             });
             await newUser.save();
             res.send("User created");

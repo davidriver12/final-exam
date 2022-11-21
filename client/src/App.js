@@ -5,6 +5,7 @@ import { Route, Routes } from "react-router-dom";
 import Login from './components/Login';
 import Signup from './components/Signup';
 import Timeline from './components/Timeline';
+import Users from './components/Users';
 
 const App = () => {
   return (
