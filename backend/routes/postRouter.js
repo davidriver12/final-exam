@@ -8,7 +8,7 @@ router.post('/new', (req, res) => {
         content: req.body.content,
         timestamp: new Date(),
         author: req.user.full_name,
-        reactions: {gusta: 0, encanta: 0, importa: 0, divierte: 0, asombra: 0, entristece: 0, enoja: 0},
+        reactions: {gusta: 0, encanta: 0, divierte: 0, asombra: 0, entristece: 0, enoja: 0},
         comments: [],
     }).save((err) => {
         if (err) throw err;
@@ -22,6 +22,17 @@ router.get('/', (req, res) => {
             console.log(list_posts);
             res.json(list_posts)
         })
+})
+
+router.post('/:id/:reaction', (req, res) => {
+    let field = "reactions." + req.params.reaction;
+    Post.findByIdAndUpdate(req.params.id, { $inc: { [field]: 1 } }, function(err, docs){
+        if (err){
+            throw(err)
+        } else {
+            console.log("Updated Post : ", docs);
+        }
+    })
 })
 
 module.exports = router;

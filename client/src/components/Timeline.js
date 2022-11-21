@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import New_post from './New_post';
+import ReactionButtons from './ReactionButtons';
 
 const Timeline = () => {
     const [data, setData] = useState(null);
@@ -80,7 +81,9 @@ const Timeline = () => {
                 {
                   posts ? <ul>{posts.map(post => (
                       <div>
-                      <li key={post._id}>{post.content}</li>
+                        <p>{post.content}</p>
+                        <p>by: {post.author}</p>
+                        <ReactionButtons post={post} />
                       </div>
                     ))} </ul> : null
                 }
