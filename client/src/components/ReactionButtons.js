@@ -34,7 +34,7 @@ const reactionEmoji = {
       )
     })
   
-    return <div>{reactionButtons}</div>
+    return <div className="reaction-buttons">{reactionButtons}</div>
   }
 
   export default ReactionButtons;

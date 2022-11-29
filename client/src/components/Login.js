@@ -23,12 +23,18 @@ const Login = () => {
       }
 
       return(
-        <div>
-            <h1>Login</h1>
-            <input placeholder='username' onChange={e => setLoginUsername(e.target.value)}/>
-            <input placeholder='password' type='password' onChange={e => setloginPassword(e.target.value)}/>
-            <button onClick={login}>Submit</button>
-            <Link to={"/sign-up"}>Sign up</Link>
+        <div className="loginPage">
+            <div className='loginStuff'>
+              <h1>Facebook</h1>
+              <p>Facebook te ayuda a comunicarte y compartir con las personas que forman parte de tu vida.</p>
+            </div>
+            <div className='login'>
+              <h1>Login</h1>
+              <input placeholder='username' onChange={e => setLoginUsername(e.target.value)}/>
+              <input placeholder='password' type='password' onChange={e => setloginPassword(e.target.value)}/>
+              <button onClick={login}>Submit</button>
+              <Link to={"/sign-up"}>Sign up</Link>
+            </div>
         </div>
       )
 }

@@ -21,7 +21,7 @@ const New_post = () => {
   }
 
   return(
-    <div>
+    <div className='newPost'>
         <h1>New post</h1>
         <input placeholder='content' onChange={e => setContent(e.target.value)}/>
         <button onClick={createPost}>Submit</button>

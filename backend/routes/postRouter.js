@@ -7,7 +7,8 @@ router.post('/new', (req, res) => {
     const post = new Post({
         content: req.body.content,
         timestamp: new Date(),
-        author: req.user.full_name,
+        author_id: req.user.id,
+        author_name: req.user.full_name,
         reactions: {gusta: 0, encanta: 0, divierte: 0, asombra: 0, entristece: 0, enoja: 0},
         comments: [],
     }).save((err) => {
@@ -24,6 +25,23 @@ router.get('/', (req, res) => {
         })
 })
 
+router.post('/:id/comment', (req,res) => {
+    const comment = {
+        content: req.body.content,
+        author_name: req.user.full_name,
+        author_id: req.user.id,
+        timestamp : new Date(),
+    }
+    console.log('xd')
+    Post.findByIdAndUpdate(req.params.id, { $push: { comments: comment } }, function(err, docs){
+        if (err){
+            throw(err)
+        } else {
+            console.log("Updated Post: ", docs);
+        }
+    })
+})
+
 router.post('/:id/:reaction', (req, res) => {
     let field = "reactions." + req.params.reaction;
     Post.findByIdAndUpdate(req.params.id, { $inc: { [field]: 1 } }, function(err, docs){
@@ -33,6 +51,14 @@ router.post('/:id/:reaction', (req, res) => {
             console.log("Updated Post : ", docs);
         }
     })
+})
+
+router.get('/by/:id', (req, res) => {
+    Post.find({ author_id: req.params.id })
+        .exec(function(err, docs){
+            if (err) throw err;
+            res.json(docs);
+        })
 })
 
 module.exports = router;
