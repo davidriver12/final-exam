@@ -50,8 +50,7 @@ button {
 }
 
 .rightDiv {
-    position: fixed;
-    left: 65vw;
+    position: relative;
     display: flex;
     flex-direction: column;
     width: 30%;
@@ -207,6 +206,7 @@ li {
 /*-----------------------------------------NAVBAR-------------------------------------------------------*/
 
 .navbar {
+    z-index: 100;
     position: fixed;
     left: 0;
     top: 0;
